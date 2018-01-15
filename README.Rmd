@@ -17,7 +17,19 @@ An R package containing tools for putative annotation of accurate m/z
 
 To install run:
 ```R
-devtools::install_github('jasenfinch/mzAnnotation')
+devtools::install_github('jasenfinch/mzAnnotation',build_vignettes = TRUE)
+```
+
+### Vignettes
+
+Package usage examples:
+```R
+vignette('mzAnnotation-usage',package = 'mzAnnotation')
+```
+
+Adding custom data tables:
+```R
+vignette('mzAnnotation-customTables',package = 'mzAnnotation')
 ```
 
 ### Tools
