@@ -25,10 +25,11 @@ r_packages:
  
 bioc_packages:
  - survival
- - Rdisop
- - ChemmineOB
  
 notifications:
   email:
     on_success: change
     on_failure: change
+    
+after_success:
+  - Rscript -e 'covr::codecov()'
