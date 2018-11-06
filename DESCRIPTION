@@ -25,3 +25,4 @@ RoxygenNote: 6.1.0
 LazyData: true
 Suggests: testthat,
     covr
+Biarch: TRUE
