@@ -21,7 +21,7 @@ Imports:
     tidyr,
     methods
 LinkingTo: Rcpp
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 LazyData: true
 Suggests: testthat,
     covr

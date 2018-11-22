@@ -1,4 +1,4 @@
-#include <openbabel/mol.h>
+#include <src/openbabel/mol.h>
 #include <openbabel/obconversion.h>
 #include <openbabel/descriptor.h>
 using namespace OpenBabel;
