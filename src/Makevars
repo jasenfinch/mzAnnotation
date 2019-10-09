@@ -2,3 +2,8 @@ CXX_STD = CXX11
 
 #PKG_CXXFLAGS =  -I/usr/include/openbabel-2.0
 #PKG_LIBS = -lopenbabel
+
+#USER_LIB_DIR = ${R_PACKAGE_DIR}/lib${R_ARCH}/
+
+PKG_CXXFLAGS =  -I./src
+#PKG_LIBS = ${USER_LIB_DIR}
