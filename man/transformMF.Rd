@@ -4,15 +4,18 @@
 \alias{transformMF}
 \title{transformMF}
 \usage{
-transformMF(MF, transformation = "M - [O] + [NH2]",
-  transformations = mzAnnotation::Transformations)
+transformMF(
+  MF,
+  transformation = "M - [O] + [NH2]",
+  transformationTable = transformations()
+)
 }
 \arguments{
 \item{MF}{molecular formula to transform}
 
 \item{transformation}{transformation to apply}
 
-\item{transformations}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
+\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
 }
 \description{
 transform a molecular formula

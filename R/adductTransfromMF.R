@@ -7,11 +7,11 @@
 #' adductTransformMF('C6H12O6','[M+H]1+')
 #' @export
 
-adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
+adductTransformMF <- function(MF,adduct,Adducts = adducts()){
 
   tMF <- function(freq,trans,expres){
     if (!is.na(trans)) {
-     expAt <- trans %>% makeup()
+     expAt <- trans %>% count.elements()
      if (F %in% (names(expAt) %in% names(freq))) {
        tmp <- rep(0,length(which(!(names(expAt) %in% names(freq)))))
        names(tmp) <- names(expAt)[!(names(expAt) %in% names(freq))]
@@ -31,7 +31,7 @@ adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
   adductRule <- Adducts %>% 
     filter(Name == adduct)
   
-  freq <- MF %>% makeup()
+  freq <- MF %>% count.elements()
   
   freq <- freq %>% 
     {. * adductRule$xM} %>%
