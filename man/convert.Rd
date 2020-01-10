@@ -7,15 +7,15 @@
 convert(input, inputType, outputType)
 }
 \arguments{
-\item{input}{a valid SMILE or Inchi}
+\item{input}{vecotr of valid SMILES or InChIs}
 
 \item{inputType}{either "smiles" or "inchi", denoting the input type}
 
 \item{outputType}{either "smiles", "inchi" or "inchikey", denoting the output type}
 }
 \description{
-convert between SMILES and Inchi and to InchiKey
+convert between SMILES and InChI and to InChIKey
 }
 \examples{
-convert(aminoAcids$SMILES[1],'smiles','inchi')
+convert(aminoAcids$SMILES,'smiles','inchi')
 }

@@ -21,7 +21,6 @@ Imports:
     stringr,
     tidyr,
     methods,
-    callr,
     ChemmineOB,
     webchem
 License: GPL (>= 3)
