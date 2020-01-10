@@ -17,5 +17,5 @@ convert(input, inputType, outputType)
 convert between SMILES and InChI and to InChIKey
 }
 \examples{
-convert(aminoAcids$SMILES,'smiles','inchi')
+convert(aminoAcids$SMILES[1],'smiles','inchi')
 }
