@@ -23,7 +23,8 @@ environment:
 # Adapt as necessary starting from here
 
 build_script:
-    - travis-tool.sh install_bioc
+  - travis-tool.sh install_bioc_deps
+
 
 test_script:
   - travis-tool.sh run_tests
