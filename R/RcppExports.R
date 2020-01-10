@@ -5,30 +5,6 @@ HR2 <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('_mzAnnotation_HR2', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 
-cnvrt <- function(input, inputType, outputType) {
-    .Call('_mzAnnotation_cnvrt', PACKAGE = 'mzAnnotation', input, inputType, outputType)
-}
-
-#' smileToMF
-#' @description convert a smile to a molecular formula
-#' @param smile a valid SMILE
-#' @examples
-#' smileToMF(aminoAcids$SMILES[1])
-#' @export
-smileToMF <- function(smile) {
-    .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
-}
-
-#' smileToAccurateMass
-#' @description convert a smile to an accurate mass
-#' @param smile a valid SMILE
-#' @examples
-#' smileToAccurateMass(aminoAcids$SMILES[1])
-#' @export
-smileToAccurateMass <- function(smile) {
-    .Call('_mzAnnotation_smileToAccurateMass', PACKAGE = 'mzAnnotation', smile)
-}
-
 #' ppmRange
 #' @description Calculate the upper and lower ppm boundaries for a given m/z
 #' @param mz the m/z for which to calculate the range

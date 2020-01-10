@@ -22,7 +22,8 @@ Imports:
     tidyr,
     methods,
     callr,
-    ChemmineOB
+    ChemmineOB,
+    webchem
 License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 7.0.2

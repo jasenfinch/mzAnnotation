@@ -24,7 +24,7 @@ calcAdducts <- function(id,db,adductTable = adducts()){
     select(Name,Rule) %>%
     bind_cols(desc) %>%
     rowwise() %>%
-    mutate(Possible = eval(parse(text = Rule)),`m/z` = calcMZ(Accurate_Mass,Name,adductTable = adductTable),MF = adductTransformMF(formula,Name,Adducts = adductTable)) %>%
+    mutate(Possible = eval(parse(text = Rule)),`m/z` = calcMZ(Accurate_Mass,Name,adductTable = adductTable),MF = adductTransformMF(MF,Name,Adducts = adductTable)) %>%
     select(Name,Possible,`m/z`,MF)
   return(add)
 }

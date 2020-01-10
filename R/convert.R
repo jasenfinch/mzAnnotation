@@ -7,15 +7,14 @@
 #' convert(aminoAcids$SMILES[1],'smiles','inchi')
 #' @importFrom callr r
 #' @importFrom utils getFromNamespace
+#' @importFrom webchem cs_convert
 #' @export
 
 convert <- function(input, inputType, outputType) {
-  output <- r(function(input,inputType,outputType){
-    cnvrt <- getFromNamespace('cnvrt','mzAnnotation')
-    cnvrt(input,inputType,outputType)
-  },
-      args = list(input = input,inputType = inputType,outputType = outputType),
-      error = 'stack'
-    )
+  
+  suppressMessages({
+    output <- cs_convert(input,from = inputType,to = outputType)[[1]]
+  })
+  
   return(output)
 }
