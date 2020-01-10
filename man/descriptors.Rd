@@ -2,17 +2,17 @@
 % Please edit documentation in R/descriptors.R
 \name{descriptors}
 \alias{descriptors}
-\title{convert SMILES to a series of molecular descriptors}
+\title{molecular descriptors}
 \usage{
-descriptors(accessions)
+descriptors(smiles)
 }
 \arguments{
-\item{accessions}{tibble containing accession information and valid SMILEs}
+\item{smiles}{vector containing valid SMILEs}
 }
 \description{
 convert SMILES to a series of molecular descriptors
 }
 \examples{
 data(aminoAcids)
-descriptors(aminoAcids)
+descriptors(aminoAcids$SMILES)
 }

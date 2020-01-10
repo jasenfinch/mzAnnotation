@@ -17,6 +17,6 @@ calcAdducts(id, db, adductTable = adducts())
 calculate ionisation products for given database accession
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 add <- calcAdducts(1,db)
 }

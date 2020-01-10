@@ -11,7 +11,7 @@
 #' @importFrom dplyr bind_rows select filter
 #' @importFrom magrittr %>%
 #' @examples
-#' res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
+#' res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES)),5,'[M-H]1-')
 
 PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()){
   M <- calcM(mz,adduct = adduct,isotope = isotope,adductTable = adductTable,isotopeTable = isotopeTable)
@@ -32,8 +32,8 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), 
     filterIP(addRule)
   
   res <- res %>%
-  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ACCESSION_ID", "SMILE"))} %>%
-    select(ACCESSION_ID:Accurate_Mass) %>%
+  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("SMILES"))} %>%
+    select(ACCESSION_ID:SMILES,MF,Accurate_Mass) %>%
     mutate(Isotope = isotope,
            Adduct = adduct,
            `Measured m/z` = mz,

@@ -1,74 +1,54 @@
-#' convert SMILES to a series of molecular descriptors
-#'
-#' @param accessions tibble containing accession information and valid SMILEs
-#' @importFrom dplyr mutate
+#' molecular descriptors
+#' @description convert SMILES to a series of molecular descriptors
+#' @param smiles vector containing valid SMILEs
+#' @importFrom dplyr mutate mutate_if ungroup
 #' @importFrom parallel makeCluster parLapply stopCluster
 #' @importFrom purrr map_dbl map_int map_chr map
+#' @importFrom magrittr set_names
+#' @importFrom ChemmineOB forEachMol prop_OB smartsSearch_OB
 #' @export
 #' @examples
 #' data(aminoAcids)
-#' descriptors(aminoAcids)
+#' descriptors(aminoAcids$SMILES)
 
-descriptors <- function(accessions){
-  smiles <- accessions$SMILE
-  desc <- c('HBA1',
-            'HBA2',
-            'HBD',
-            'logP',
-            'TPSA'
-  )
-  
-  descs <- desc %>%
-    map(~{
-      descType <- .
-      map_dbl(smiles,~{
-        m <- .
-        m %>%
-          descriptor(descType)
-      })
-    })
-  names(descs) <- desc
-  
-  descs <- descs %>%
-    bind_cols()
-  
-  Fgroups <- tibble(Name = c('Negative_Charge',
-                             'Positive_Charge',
-                             'NHH',
-                             'OH',
-                             'COOH',
-                             'COO'),
-                    String = c('[-]',
-                               '[+]',
-                               "[NX3;H2]",
-                               "[OX2H]",
-                               "[CX3](=O)[OX2H1]",
-                               "[CX3](=O)[OX1H0-]")
-  )
-  
-  
-  groups <- Fgroups %>%
-    split(1:nrow(Fgroups)) %>%
-    map(~{
-      string <- .$String
-      g <- map_int(smiles,~{
-        s <- .
-        s %>%
-          smartsSearch(string)
-      }) %>%
+descriptors <- function(smiles){
+  desc <- map(smiles,~{
+    suppressWarnings({
+      ref <- forEachMol("SMILES",.x,identity) 
+      
+      desc <- ref %>%
+        prop_OB()
+      
+      smarts <- c('[-]',
+                  '[+]',
+                  "[NX3;H2]",
+                  "[OX2H]",
+                  "[CX3](=O)[OX2H1]",
+                  "[CX3](=O)[OX1H0-]") %>%
+        map(~{
+          smartsSearch_OB(ref,.x)
+        }) %>%
+        set_names(c('Negative_Charge',
+                    'Positive_Charge',
+                    'NHH',
+                    'OH',
+                    'COOH',
+                    'COO')) %>%
         as_tibble()
-      names(g) <- .$Name
-      return(g)
-    }) %>%
-    bind_cols()
-  
-  desc <- bind_cols(SMILE = smiles,descs,groups) %>%
-    mutate(Total_Charge = -Negative_Charge + Positive_Charge,
-           MF = map_chr(SMILE,smileToMF),
-           `Accurate_Mass` = map_dbl(SMILE,smileToAccurateMass) %>% round(5),
-           ACCESSION_ID = accessions$ACCESSION_ID) %>%
-    
-    select(ACCESSION_ID,SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
-  
+      
+      desc <- desc %>%
+        bind_cols(smarts) %>%
+        as_tibble() %>%
+        mutate_if(is.factor,as.character)
+    })
+    return(desc)
+  }) %>%
+    bind_rows() %>%
+    rowwise() %>%
+    mutate(Accurate_Mass = calcAccurateMass(formula)) %>%
+    ungroup() %>%
+    mutate(Total_Charge = Negative_Charge + Positive_Charge,
+           SMILES = smiles) %>%
+    select(-InChI,-title,MF = formula)
   return(desc)
 }

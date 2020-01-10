@@ -10,7 +10,7 @@
 \item{NAME}{}
 \item{InChi}{}
 \item{InChiKey}{}
-\item{SMILE}{}
+\item{SMILES}{}
 }}
 \usage{
 aminoAcids

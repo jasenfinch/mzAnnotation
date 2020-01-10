@@ -1,7 +1,9 @@
 #' @importFrom dplyr everything
 
 elementFrequencies <- function(db){
-  MFs <- db@descriptors[[1]]$MF %>%
+  MFs <- db %>%
+    getDescriptors() %>%
+    .$MF %>%
     unique() %>%
     map(~{
       mf <- .
@@ -10,10 +12,12 @@ elementFrequencies <- function(db){
         as.list() %>%
         as_tibble()
     })
-  names(MFs) <- db@descriptors[[1]]$MF %>% unique()
+  names(MFs) <- db %>%
+    getDescriptors() %>%
+    .$MF %>% unique()
   MFs <- MFs %>% 
     bind_rows(.id = 'MF') %>%
-    right_join(db@descriptors[[1]] %>% select(ACCESSION_ID,MF), by = "MF") %>%
-    select(ACCESSION_ID,everything())
+    right_join(db@descriptors[[1]] %>% select(SMILES,MF), by = "MF") %>%
+    select(SMILES,everything())
   return(MFs)
 }

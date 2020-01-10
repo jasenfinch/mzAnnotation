@@ -10,6 +10,7 @@ Description: Tools for the putative annotation of high resolution metabolomics m
     data.
 URL: https://github.com/jasenfinch/mzAnnotation
 Depends: R (>= 3.5)
+BiocViews: Metabolomics
 Imports:
     Rcpp,
     CHNOSZ,
@@ -20,10 +21,11 @@ Imports:
     stringr,
     tidyr,
     methods,
-    callr
+    callr,
+    ChemmineOB
 License: GPL (>= 3)
 Encoding: UTF-8
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2
 LazyData: true
 Suggests: testthat,
     covr

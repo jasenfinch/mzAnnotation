@@ -13,7 +13,7 @@ cnvrt <- function(input, inputType, outputType) {
 #' @description convert a smile to a molecular formula
 #' @param smile a valid SMILE
 #' @examples
-#' smileToMF(aminoAcids$SMILE[1])
+#' smileToMF(aminoAcids$SMILES[1])
 #' @export
 smileToMF <- function(smile) {
     .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
@@ -23,25 +23,10 @@ smileToMF <- function(smile) {
 #' @description convert a smile to an accurate mass
 #' @param smile a valid SMILE
 #' @examples
-#' smileToAccurateMass(aminoAcids$SMILE[1])
+#' smileToAccurateMass(aminoAcids$SMILES[1])
 #' @export
 smileToAccurateMass <- function(smile) {
     .Call('_mzAnnotation_smileToAccurateMass', PACKAGE = 'mzAnnotation', smile)
-}
-
-#' smartsSearch
-#' @description SMARTS substructure searching for SMILES.
-#' @param smile a valid SMILE
-#' @param smart a valid SMARTS symbol
-#' @examples
-#' smartsSearch(aminoAcids$SMILE[1],"[OX2H]")
-#' @export
-smartsSearch <- function(smile, smart) {
-    .Call('_mzAnnotation_smartsSearch', PACKAGE = 'mzAnnotation', smile, smart)
-}
-
-descriptor <- function(smile, desc) {
-    .Call('_mzAnnotation_descriptor', PACKAGE = 'mzAnnotation', smile, desc)
 }
 
 #' ppmRange
